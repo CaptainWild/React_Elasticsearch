@@ -4,8 +4,20 @@ import { classNames } from '@shopify/react-utilities/styles';
 
 import { AllowedEntityStatusColor } from 'Types/Domain';
 import { IRoleDef } from 'Types/Domain';
+import { connect } from 'react-redux';
 
 import DrawerSpinner from '../../../Common/Components/DrawerSpinner';
+import * as actions from '../../../redux/actions/index';
+
+const mapStateToProps = state => {
+  return { roleDefs: state.data };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getRoles: allShow => dispatch(actions.getRoles(allShow))
+  };
+}
 
 import {
   Badge,
@@ -29,6 +41,7 @@ import {
 import { RoleListState } from './RoleListState';
 import { RoleListProp } from './RoleListProp';
 import { ROLE } from '../../../ThemeIdentifiers';
+import { Actions } from 'history';
 
 const baseTheme = require('../Styles/RoleList.scss');
 const TableStyle = require('../../../Theme/Table.scss');
@@ -37,7 +50,10 @@ const CommonStyle = require('../../../Theme/ListTheme.scss');
  * Component to display role def list & show different actions like filter, delete, individual actions
  * @extends React.Component
  */
-class RoleListComponent extends React.Component<RoleListProp, RoleListState> {
+class connectedRoleListComponent extends React.Component<
+  RoleListProp,
+  RoleListState
+> {
   sortQuery: string = '[{"id":{"order":"desc"}}]';
   /*
     label: Table header lable which will be visible
@@ -141,6 +157,7 @@ class RoleListComponent extends React.Component<RoleListProp, RoleListState> {
   //enable show deleted
   enableShowDeleted = event => {
     this.setState({ isChecked: event });
+    this.props.getRoles(event);
   };
 
   // Callback function when any row gets selected
@@ -271,6 +288,14 @@ class RoleListComponent extends React.Component<RoleListProp, RoleListState> {
     );
   }
 }
+
+let RoleListComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(connectedRoleListComponent) as ThemedComponentClass<
+  RoleListProp,
+  RoleListState
+>;
 
 export default themr(
   ROLE,

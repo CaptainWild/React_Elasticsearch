@@ -13,7 +13,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loading: () => dispatch(actions.getRoles(false))
+    getRoles: allShow => dispatch(actions.getRoles(allShow))
   };
 }
 
@@ -24,7 +24,7 @@ function mapDispatchToProps(dispatch) {
  */
 class ConnectedRoleDefComponent extends React.Component<RoleMainProp, null> {
   componentDidMount() {
-    this.props.loading();
+    this.props.getRoles(false);
   }
   /**
    * Render the component to the DOM
@@ -36,7 +36,9 @@ class ConnectedRoleDefComponent extends React.Component<RoleMainProp, null> {
     return (
       <div>
         <ThemeContext.Consumer>
-          {theme => <RoleListComponent theme={theme} roleDefs={roles} />}
+          {theme => (
+            <RoleListComponent theme={theme} roleDefs={roles} getRoles />
+          )}
         </ThemeContext.Consumer>
       </div>
     );
