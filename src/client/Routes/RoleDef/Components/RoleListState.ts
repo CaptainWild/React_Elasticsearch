@@ -49,4 +49,6 @@ export interface RoleListState {
   hideRow: HideRowType;
   // State to store nestedchild component which will be shown on row expand
   nestedChildData: TableNestedData[];
+  //State to show deleted documents
+  isChecked: boolean;
 }

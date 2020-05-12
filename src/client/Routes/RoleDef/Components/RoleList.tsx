@@ -105,6 +105,7 @@ class RoleListComponent extends React.Component<RoleListProp, RoleListState> {
         content: (
           <Checkbox
             onChange={this.enableShowDeleted.bind(this)}
+            checked={this.state.isChecked}
             label={'Show Deleted'}
           />
         )
@@ -132,14 +133,16 @@ class RoleListComponent extends React.Component<RoleListProp, RoleListState> {
       },
       hideRow: {},
       loadingRole: false,
-      nestedChildData: []
+      nestedChildData: [],
+      isChecked: false
     };
   }
 
   //enable show deleted
   enableShowDeleted = event => {
-    console.log(event);
+    this.setState({ isChecked: event });
   };
+
   // Callback function when any row gets selected
   handleSelectRowCallback = (val: React.ReactText[]) => {};
 
@@ -167,7 +170,6 @@ class RoleListComponent extends React.Component<RoleListProp, RoleListState> {
       loadingRole
     } = this.state;
     const { roleDefs, theme } = this.props;
-    console.log(this.state);
     const searchFieldStyle = classNames(
       theme.commonLeftMargin,
       theme.searchField
