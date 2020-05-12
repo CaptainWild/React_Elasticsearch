@@ -13,7 +13,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loading: () => dispatch(actions.getRoles())
+    loading: () => dispatch(actions.getRoles(false))
   };
 }
 

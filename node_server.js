@@ -38,9 +38,29 @@ function searchRoles(req, res, next) {
     try {
         {
             console.log('searchRoles');
-            console.log(req.body);
+            const { allShow } = req.query;
+            let body = {
+                "from": 0,
+                "size": 20,
+            };
+
+            console.log('---- showAll: ', allShow, allShow === 'false');
+            if (allShow === 'false') {
+                body = {
+                    "from": 0,
+                    "size": 20,
+                    "query": {
+                        "bool": {
+                            "must": [
+                                { "term": { "entityState.itemID": 5 } }
+                            ]
+                        }
+                    }
+                }
+            }
+            console.log('----- body : ', body);
             client.search({
-                    body: req.body,
+                    body: body,
                     index: 'roledefs'
                 })
                 .then((e) => {
