@@ -13,7 +13,8 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRoles: allShow => dispatch(actions.getRoles(allShow))
+    getRoles: (allShow, filterBy) =>
+      dispatch(actions.getRoles(allShow, filterBy))
   };
 }
 
@@ -24,7 +25,7 @@ function mapDispatchToProps(dispatch) {
  */
 class ConnectedRoleDefComponent extends React.Component<RoleMainProp, null> {
   componentDidMount() {
-    this.props.getRoles(false);
+    this.props.getRoles(false, null);
   }
   /**
    * Render the component to the DOM

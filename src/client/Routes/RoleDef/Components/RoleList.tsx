@@ -15,7 +15,8 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getRoles: allShow => dispatch(actions.getRoles(allShow))
+    getRoles: (allShow, filterBy) =>
+      dispatch(actions.getRoles(allShow, filterBy))
   };
 }
 
@@ -157,9 +158,14 @@ class connectedRoleListComponent extends React.Component<
   //enable show deleted
   enableShowDeleted = event => {
     this.setState({ isChecked: event });
-    this.props.getRoles(event);
+    this.props.getRoles(event, null);
   };
 
+  filterRoles = event => {
+    console.log(event);
+    this.state.filterConfig.searchKey = event;
+    this.props.getRoles(this.state.isChecked, event);
+  };
   // Callback function when any row gets selected
   handleSelectRowCallback = (val: React.ReactText[]) => {};
 
@@ -239,7 +245,8 @@ class connectedRoleListComponent extends React.Component<
 
               <div className={searchFieldStyle}>
                 <TextField
-                  disabled
+                  // disabled
+                  onChange={this.filterRoles.bind(this)}
                   label="Find a Role..."
                   suffix={<Icon source="search" componentColor="inkLighter" />}
                   value={filterConfig.searchKey}

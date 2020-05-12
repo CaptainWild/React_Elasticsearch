@@ -1,8 +1,9 @@
 import * as constants from './constants';
 
-export const getRoles = allShow => ({
+export const getRoles = (allShow, filterBy) => ({
   type: constants.ROLE_GET,
-  allShow
+  allShow,
+  filterBy
 });
 
 export const getRolesSuccess = data => ({

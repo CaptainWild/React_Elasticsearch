@@ -8,7 +8,8 @@ function* get_roles(props) {
   try {
     var res = yield axios.get(`${constants.SEARCH_ROLE_URL}`, {
       params: {
-        allShow: props.allShow
+        allShow: props.allShow,
+        filterBy: props.filterBy
       }
     });
     if (res) {

@@ -38,27 +38,33 @@ function searchRoles(req, res, next) {
     try {
         {
             console.log('searchRoles');
-            const { allShow } = req.query;
+            const { allShow, filterBy } = req.query;
             let body = {
                 "from": 0,
                 "size": 20,
             };
 
-            console.log('---- showAll: ', allShow, allShow === 'false');
+            let query = [];
             if (allShow === 'false') {
+                query.push({ "term": { "entityState.itemID": 5 } });
+            }
+
+            if (filterBy) {
+                query.push({ "wildcard": { "name": `*${filterBy}*` } })
+            }
+
+            if (query) {
                 body = {
                     "from": 0,
                     "size": 20,
                     "query": {
                         "bool": {
-                            "must": [
-                                { "term": { "entityState.itemID": 5 } }
-                            ]
+                            "must": query
                         }
                     }
                 }
             }
-            console.log('----- body : ', body);
+
             client.search({
                     body: body,
                     index: 'roledefs'
