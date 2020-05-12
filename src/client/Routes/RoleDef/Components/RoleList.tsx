@@ -158,6 +158,7 @@ class connectedRoleListComponent extends React.Component<
   //enable show deleted
   enableShowDeleted = event => {
     this.setState({ isChecked: event });
+    this.state.filterConfig.searchKey = '';
     this.props.getRoles(event, null);
   };
 
