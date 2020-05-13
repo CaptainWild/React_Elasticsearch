@@ -33,7 +33,7 @@ class ConnectedRoleDefComponent extends React.Component<RoleMainProp, null> {
    */
   render() {
     const { roles } = this.props;
-    console.log('-----------roles:', roles);
+
     return (
       <div>
         <ThemeContext.Consumer>

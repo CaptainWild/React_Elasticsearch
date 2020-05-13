@@ -4,7 +4,6 @@ import axios from 'axios';
 import * as actions from '../actions/index';
 
 function* get_roles(props) {
-  console.log('----get API call', props);
   try {
     var res = yield axios.get(`${constants.SEARCH_ROLE_URL}`, {
       params: {

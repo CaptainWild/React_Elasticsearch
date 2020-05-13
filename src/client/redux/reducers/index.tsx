@@ -7,7 +7,6 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case constants.ROLE_GET_SUCCESS: {
-      console.log(action.data);
       const data = action.data.hits.hits.map(item => item._source);
       return Object.assign({}, state, {
         data: data

@@ -37,7 +37,6 @@ function fetch_fn(req, res, next) {
 function searchRoles(req, res, next) {
     try {
         {
-            console.log('searchRoles');
             const { allShow, filterBy } = req.query;
             let body = {
                 "from": 0,
@@ -56,7 +55,7 @@ function searchRoles(req, res, next) {
                     query = `(name:*${filterBy}* OR description:*${filterBy}*)`
                 }
             }
-            console.log('--------------current query: ', query)
+
             if (query) {
                 body = {
                     "from": 0,

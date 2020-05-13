@@ -115,21 +115,6 @@ class connectedRoleListComponent extends React.Component<
     }
   ];
 
-  // function needs to be called on onChange for checkBox
-  private bulkOptions = () => {
-    return [
-      {
-        content: (
-          <Checkbox
-            onChange={this.enableShowDeleted.bind(this)}
-            checked={this.state.isChecked}
-            label={'Show Deleted'}
-          />
-        )
-      }
-    ];
-  };
-
   constructor(props: RoleListProp) {
     super(props);
     this.state = {
@@ -155,15 +140,29 @@ class connectedRoleListComponent extends React.Component<
     };
   }
 
-  //enable show deleted
-  enableShowDeleted = event => {
-    this.setState({ isChecked: event });
-    this.state.filterConfig.searchKey = '';
-    this.props.getRoles(event, null);
+  // function needs to be called on onChange for checkBox
+  private bulkOptions = () => {
+    return [
+      {
+        content: (
+          <Checkbox
+            onChange={this.enableShowDeleted.bind(this)}
+            checked={this.state.isChecked}
+            label={'Show Deleted'}
+          />
+        )
+      }
+    ];
   };
 
+  //enable show all
+  enableShowDeleted = event => {
+    this.setState({ isChecked: event });
+    this.props.getRoles(event, this.state.filterConfig.searchKey);
+  };
+
+  // filter by name and description
   filterRoles = event => {
-    console.log(event);
     this.state.filterConfig.searchKey = event;
     this.props.getRoles(this.state.isChecked, event);
   };
