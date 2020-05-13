@@ -148,7 +148,7 @@
     "webpack": "^3.7.1",
     "webpack-dashboard": "^0.3.0",
     "webpack-dev-middleware": "^1.10.1",
-    "webpack-dev-server": "^2.4.2",
+    "webpack-dev-server": "^3.1.11",
     "webpack-hot-middleware": "^2.18.0"
   }
 }
