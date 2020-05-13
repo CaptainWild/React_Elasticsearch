@@ -44,22 +44,26 @@ function searchRoles(req, res, next) {
                 "size": 20,
             };
 
-            let query = [];
+            let query = '';
             if (allShow === 'false') {
-                query.push({ "term": { "entityState.itemID": 5 } });
+                query = '(entityState.itemID:5)';
             }
 
             if (filterBy) {
-                query.push({ "wildcard": { "name": `*${filterBy}*` } })
+                if (query) {
+                    query = `(name:*${filterBy}* OR description:*${filterBy}*) AND` + query;
+                } else {
+                    query = `(name:*${filterBy}* OR description:*${filterBy}*)`
+                }
             }
-
+            console.log('--------------current query: ', query)
             if (query) {
                 body = {
                     "from": 0,
                     "size": 20,
                     "query": {
-                        "bool": {
-                            "must": query
+                        "query_string": {
+                            "query": query
                         }
                     }
                 }
